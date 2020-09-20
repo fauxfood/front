@@ -1,16 +1,11 @@
-import { useQuery, gql } from '@apollo/client';
+import { useUsername } from '../lib/apiClient';
 
-const GetUsername = gql`
-  query GetUsername {
-    users { name }
-  }
-`;
 
 export default function Header(){
-  const { loading, error, data } = useQuery(GetUsername);
+  const { loading, error, userName } = useUsername();
 
   if (loading || error ){
     return <header>welcome!</header>
   }
-  return <header>welcome, {data.users[0].name}</header>
+  return <header>welcome, {userName}</header>
 }
