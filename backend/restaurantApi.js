@@ -1,14 +1,15 @@
 import { RESTDataSource } from 'apollo-datasource-rest';
 
+const RESTAURAUNT_SERVICE_BASE_URL = process.env.RESTAURAUNT_SERVICE_BASE_URL;
+
 export default class RestaurantAPI extends RESTDataSource {
   constructor() {
     super();
-    this.baseURL = 'http://localhost:8080/';
+    this.baseURL = RESTAURAUNT_SERVICE_BASE_URL;
   }
 
   async getRestaurantMenu(slug) {
     const data = await this.get(`restaurants/${slug}/menu`);
-    console.log('getRestaurantMenu: ',JSON.stringify(data,2,null));
     
     const menu = {
       items: data.menuItems.map(transformMenuItem)
